@@ -1,0 +1,52 @@
+{
+	"id": 2,
+	"date_created": "2024-03-19T09:23:06",
+	"date_created_gmt": "2024-03-19T09:23:06",
+	"date_modified": "2024-03-19T09:23:06",
+	"date_modified_gmt": "2024-03-19T09:23:06",
+	"email": "yasmen.abodabash@gmil.com",
+	"first_name": "yasmen",
+	"last_name": "mohammed",
+	"role": "customer",
+	"username": "yasmenaa",
+	"billing": {
+		"first_name": "",
+		"last_name": "",
+		"company": "",
+		"address_1": "",
+		"address_2": "",
+		"city": "",
+		"postcode": "",
+		"country": "",
+		"state": "",
+		"email": "",
+		"phone": ""
+	},
+	"shipping": {
+		"first_name": "",
+		"last_name": "",
+		"company": "",
+		"address_1": "",
+		"address_2": "",
+		"city": "",
+		"postcode": "",
+		"country": "",
+		"state": "",
+		"phone": ""
+	},
+	"is_paying_customer": false,
+	"avatar_url": "http:\/\/0.gravatar.com\/avatar\/61830f6fc07b82603fd1e51bcf8c1e69?s=96&d=mm&r=g",
+	"meta_data": [],
+	"_links": {
+		"self": [
+			{
+				"href": "http:\/\/localhost\/wordpress\/wp-json\/wc\/v3\/customers\/2"
+			}
+		],
+		"collection": [
+			{
+				"href": "http:\/\/localhost\/wordpress\/wp-json\/wc\/v3\/customers"
+			}
+		]
+	}
+}

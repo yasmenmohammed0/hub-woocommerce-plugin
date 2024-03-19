@@ -1,0 +1,95 @@
+{
+    "id": 20,
+    "name": "test",
+    "slug": "test-2",
+    "permalink": "http://localhost/wordpress/product/test-2/",
+    "date_created": "2024-03-19T09:55:47",
+    "date_created_gmt": "2024-03-19T09:55:47",
+    "date_modified": "2024-03-19T09:55:47",
+    "date_modified_gmt": "2024-03-19T09:55:47",
+    "type": "simple",
+    "status": "publish",
+    "featured": false,
+    "catalog_visibility": "visible",
+    "description": "",
+    "short_description": "",
+    "sku": "",
+    "price": "",
+    "regular_price": "",
+    "sale_price": "",
+    "date_on_sale_from": null,
+    "date_on_sale_from_gmt": null,
+    "date_on_sale_to": null,
+    "date_on_sale_to_gmt": null,
+    "on_sale": false,
+    "purchasable": false,
+    "total_sales": 0,
+    "virtual": false,
+    "downloadable": false,
+    "downloads": [],
+    "download_limit": -1,
+    "download_expiry": -1,
+    "external_url": "",
+    "button_text": "",
+    "tax_status": "taxable",
+    "tax_class": "",
+    "manage_stock": false,
+    "stock_quantity": null,
+    "backorders": "no",
+    "backorders_allowed": false,
+    "backordered": false,
+    "low_stock_amount": null,
+    "sold_individually": false,
+    "weight": "",
+    "dimensions": {
+        "length": "",
+        "width": "",
+        "height": ""
+    },
+    "shipping_required": true,
+    "shipping_taxable": true,
+    "shipping_class": "",
+    "shipping_class_id": 0,
+    "reviews_allowed": true,
+    "average_rating": "0.00",
+    "rating_count": 0,
+    "upsell_ids": [],
+    "cross_sell_ids": [],
+    "parent_id": 0,
+    "purchase_note": "",
+    "categories": [
+        {
+            "id": 15,
+            "name": "Uncategorized",
+            "slug": "uncategorized"
+        }
+    ],
+    "tags": [],
+    "images": [],
+    "attributes": [],
+    "default_attributes": [],
+    "variations": [],
+    "grouped_products": [],
+    "menu_order": 0,
+    "price_html": "",
+    "related_ids": [
+        17
+    ],
+    "meta_data": [],
+    "stock_status": "instock",
+    "has_options": false,
+    "post_password": "",
+    "jetpack_sharing_enabled": true,
+    "_links": {
+        "self": [
+            {
+                "href": "http://localhost/wordpress/wp-json/wc/v3/products/20"
+            }
+        ],
+        "collection": [
+            {
+                "href": "http://localhost/wordpress/wp-json/wc/v3/products"
+            }
+        ]
+    }
+}

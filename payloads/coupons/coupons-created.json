@@ -1,0 +1,42 @@
+{
+	"id": 22,
+	"code": "test1",
+	"amount": "0.00",
+	"status": "publish",
+	"date_created": "2024-03-19T10:02:35",
+	"date_created_gmt": "2024-03-19T10:02:35",
+	"date_modified": "2024-03-19T10:02:35",
+	"date_modified_gmt": "2024-03-19T10:02:35",
+	"discount_type": "fixed_cart",
+	"description": "",
+	"date_expires": "2024-03-27T00:00:00",
+	"date_expires_gmt": "2024-03-27T00:00:00",
+	"usage_count": 0,
+	"individual_use": false,
+	"product_ids": [],
+	"excluded_product_ids": [],
+	"usage_limit": null,
+	"usage_limit_per_user": null,
+	"limit_usage_to_x_items": null,
+	"free_shipping": false,
+	"product_categories": [],
+	"excluded_product_categories": [],
+	"exclude_sale_items": false,
+	"minimum_amount": "0.00",
+	"maximum_amount": "0.00",
+	"email_restrictions": [],
+	"used_by": [],
+	"meta_data": [],
+	"_links": {
+		"self": [
+			{
+				"href": "http:\/\/localhost\/wordpress\/wp-json\/wc\/v3\/coupons\/22"
+			}
+		],
+		"collection": [
+			{
+				"href": "http:\/\/localhost\/wordpress\/wp-json\/wc\/v3\/coupons"
+			}
+		]
+	}
+}
