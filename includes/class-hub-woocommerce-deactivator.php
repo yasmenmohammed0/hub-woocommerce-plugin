@@ -42,6 +42,7 @@ class Hub_Woocommerce_Deactivator
 
 		$store_data = array(
 			"platform_id" => $store_id,
+			'store_url' => get_bloginfo('url'),
 			'event_name' => 'uninstall',
 		);
 
