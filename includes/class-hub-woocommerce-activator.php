@@ -41,12 +41,12 @@ class Hub_Woocommerce_Activator
 		$store_id = update_option('store_id', wp_generate_uuid4());
 
 		$store_data = array(
-			'event_name' => 'install',
+			'event_name' => 'installed',
 			'store_name' => get_bloginfo('name'),
 			'store_phone' => get_option('admin_phone'),
 			'store_email' => get_option('admin_email'),
 			'store_url' => get_bloginfo('url'),
-			'store_id' =>get_option('store_id', ''),
+			'platform_id' =>get_option('store_id', ''),
 		);
 
 		// Set up the request arguments
@@ -58,7 +58,7 @@ class Hub_Woocommerce_Activator
 			'timeout'     => 15,
 		);
 
-		$request_url = 'https://01hsaz5r26g79f7ewpc5gjpf4j10-931d83797b9bc62026f0.requestinspector.com';
+		$request_url = 'https://e6c5-102-186-40-102.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
 		$response = wp_remote_post($request_url, $args);
 
 		// Check for errors
@@ -101,9 +101,9 @@ class Hub_Woocommerce_Activator
 		$webhook_status = 'active';
 
 		// Set the webhook endpoint URL
-		$webhook_url = 'https://webhook.site/e8811346-bc14-41b4-b88c-02dcc3f1505f/woo/events' . '?store_id=' . get_option('store_id');
-
+		
 		foreach ($webhooks_topics_to_register as $webhook_topic) {
+			$webhook_url = 'https://e6c5-102-186-40-102.ngrok-free.app/api/v1/integration/events/woocommerce/app.event' .$webhook_topic .'platform_id=' . get_option('store_id', '');
 			// Create the webhook data
 			$webhook_data = array(
 				'name' => 'Hub Event: ' . $webhook_topic,

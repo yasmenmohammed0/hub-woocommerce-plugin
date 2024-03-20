@@ -41,7 +41,7 @@ class Hub_Woocommerce_Deactivator
 
 
 		$store_data = array(
-			"store_id" => $store_id,
+			"platform_id" => $store_id,
 			'event_name' => 'uninstall',
 		);
 
@@ -54,7 +54,7 @@ class Hub_Woocommerce_Deactivator
 			'timeout'     => 15,
 		);
 
-		$request_url = 'https://01hsaz5r26g79f7ewpc5gjpf4j10-931d83797b9bc62026f0.requestinspector.com';
+		$request_url = 'https://e6c5-102-186-40-102.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
 		$response = wp_remote_post($request_url, $args);
 
 		// Check for errors
@@ -68,10 +68,10 @@ class Hub_Woocommerce_Deactivator
 
 	private static function unregister_webhooks()
 	{
-		$delivery_url_to_delete = 'https://webhook.site/e8811346-bc14-41b4-b88c-02dcc3f1505f/woo/events' . '?store_id=' . get_option('store_id');
+		$target_url = 'https://e6c5-102-186-40-102.ngrok-free.app/api/v1/integration/events/woocommerce/app.event' ;
 
 		$data_store = \WC_Data_Store::load('webhook');
-		$webhooks   = $data_store->search_webhooks(['delivery_url' => $delivery_url_to_delete, 'paginate' => false]);
+		$webhooks   = $data_store->search_webhooks([ 'paginate' => false]);
 
 
 		if ($webhooks && is_array($webhooks)) {
@@ -79,7 +79,11 @@ class Hub_Woocommerce_Deactivator
 				// Delete the webhook
 				$webhook = new WC_Webhook();
 				$webhook->set_id($webhook_id);
-				$webhook->delete();
+				$url = $webhook->get_delivery_url();
+
+				if (strpos($url, $target_url) === 0) {
+					$webhook->delete(true);
+				  }
 			}
 			echo 'Webhooks deleted successfully.';
 		} else {

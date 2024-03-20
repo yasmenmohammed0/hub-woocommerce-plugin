@@ -3,7 +3,7 @@
  * Plugin Name: Hub
  * Version: 0.1.0
  * Author: Twerlo
- * Author URI: https://woo.com
+ * Author URI: https://twerlo.com
  * Text Domain: hub
  * Domain Path: /languages
  *

@@ -90,51 +90,7 @@ function add_extension_register_page()
 		),
 	));
 }
-add_action('woocommerce_applied_coupon', 'track_applied_coupons');
-function track_applied_coupons($coupon_code) {
-    // Example action: error_log a message with the coupon code
-	{
-		$store_data = array(
-			'store_id' => get_option('store_id', ''), // try to get hub integration id from settings
-			'store_name' => get_bloginfo('name'),
-			'store_phone' => get_option('woocommerce_store_phone', ""),
-			'store_email' => get_option('admin_email'),
-			'store_url' => get_bloginfo('url'),
-			'coupon_code' => $coupon_code,
-		);
 
-		// Set up the request arguments
-		$args = array(
-			'body'        => json_encode($store_data),
-			'headers'     => array(
-				'Content-Type' => 'application/json',
-			),
-			'timeout'     => 15,
-		);
-
-		$request_url = 'https://01hsaz5r26g79f7ewpc5gjpf4j10-931d83797b9bc62026f0.requestinspector.com';
-		$response = wp_remote_post($request_url, $args);
-
-		// Check for errors
-		if (is_wp_error($response)) {
-			echo 'Error: ' . $response->get_error_message();
-		} else {
-			// Success, save integration_id
-			$body = wp_remote_retrieve_body($response);
-			echo 'Response: ' . $body;
-			error_log($body);
-
-			$responseArray = json_decode($body, true);
-			$integration_id = $responseArray['merchantDetails']['_id'];
-			if ($integration_id) {
-				update_option('store_id', $integration_id);
-			}
-		}
-	}
-    error_log('Coupon applied: ' . $coupon_code);
-    
-    // You can extend this function to record the event in a custom database table, send an email, or integrate with an analytics service.
-}
 
 add_action('admin_menu', 'add_extension_register_page');
 
