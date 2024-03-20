@@ -38,7 +38,8 @@ class Hub_Woocommerce_Activator
 	// if not there request new merchant install from hubs
 	private static function install_merchant()
 	{
-		$store_id = update_option('store_id', wp_generate_uuid4());
+		$random_string = wp_generate_password(12, true);
+		$store_id = update_option('store_id', $random_string);
 
 		$store_data = array(
 			'event_name' => 'installed',
@@ -54,12 +55,13 @@ class Hub_Woocommerce_Activator
 			'body'        => json_encode($store_data),
 			'headers'     => array(
 				'Content-Type' => 'application/json',
-				'X-BUSINESS-Id'=> '1234'
+				'X-BUSINESS-Id'=> 'e692e4f4-f85b-4a02-bf01-87f24ac5a817'
+
 			),
 			'timeout'     => 15,
 		);
 
-		$request_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce';
+		$request_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
 		$response = wp_remote_post($request_url, $args);
 
 		// Check for errors
@@ -104,7 +106,7 @@ class Hub_Woocommerce_Activator
 		// Set the webhook endpoint URL
 		
 		foreach ($webhooks_topics_to_register as $webhook_topic) {
-			$webhook_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/' .$webhook_topic .'?platform_id=' . get_option('store_id', '');
+			$webhook_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/app.event' .$webhook_topic .'?platform_id=' . get_option('store_id', '');
 			// Create the webhook data
 			$webhook_data = array(
 				'name' => 'Hub Event: ' . $webhook_topic,
