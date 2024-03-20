@@ -37,11 +37,12 @@ class Hub_Woocommerce_Deactivator
 	private static function uninstall_merchant()
 	{
 		// try to get hub integration id from settings
-		$hub_integration_id = get_option('hub_integration_id', '');
+		$hub_integration_id = get_option('store_id', '');
 
 
 		$store_data = array(
-			"platfrom_id" => $hub_integration_id,
+			"store_id" => $hub_integration_id,
+			'event_name' => 'uninstall',
 		);
 
 		// Set up the request arguments

@@ -30,6 +30,7 @@ class Hub_Woocommerce_Activator
 	 */
 	public static function activate()
 	{
+
 		Hub_Woocommerce_Activator::install_merchant();
 		Hub_Woocommerce_Activator::register_webhooks();
 	}
@@ -37,12 +38,15 @@ class Hub_Woocommerce_Activator
 	// if not there request new merchant install from hubs
 	private static function install_merchant()
 	{
+		$store_id = update_option('store_id', wp_generate_uuid4());
+
 		$store_data = array(
-			'integration_id' => get_option('hub_integration_id', ''), // try to get hub integration id from settings
+			'event_name' => 'install',
 			'store_name' => get_bloginfo('name'),
-			'store_phone' => get_option('woocommerce_store_phone', ""),
+			'store_phone' => get_option('admin_phone'),
 			'store_email' => get_option('admin_email'),
-			'store_url' => get_bloginfo('url')
+			'store_url' => get_bloginfo('url'),
+			'store_id' =>get_option('store_id', ''),
 		);
 
 		// Set up the request arguments
@@ -67,10 +71,9 @@ class Hub_Woocommerce_Activator
 			error_log($body);
 
 			$responseArray = json_decode($body, true);
-			$integration_id = $responseArray['merchantDetails']['_id'];
-			if ($integration_id) {
-				update_option('hub_integration_id', $integration_id);
-			}
+			// $integration_id = $responseArray['merchantDetails']['_id'];
+			// if ($integration_id) {
+			// }
 		}
 	}
 
