@@ -58,7 +58,7 @@ class Hub_Woocommerce_Activator
 			'timeout'     => 15,
 		);
 
-		$request_url = 'https://e6c5-102-186-40-102.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
+		$request_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce';
 		$response = wp_remote_post($request_url, $args);
 
 		// Check for errors
@@ -103,7 +103,7 @@ class Hub_Woocommerce_Activator
 		// Set the webhook endpoint URL
 		
 		foreach ($webhooks_topics_to_register as $webhook_topic) {
-			$webhook_url = 'https://e6c5-102-186-40-102.ngrok-free.app/api/v1/integration/events/woocommerce/app.event' .$webhook_topic .'platform_id=' . get_option('store_id', '');
+			$webhook_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/' .$webhook_topic .'?platform_id=' . get_option('store_id', '');
 			// Create the webhook data
 			$webhook_data = array(
 				'name' => 'Hub Event: ' . $webhook_topic,

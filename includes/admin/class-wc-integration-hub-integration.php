@@ -28,7 +28,7 @@ if (!class_exists('WC_Integration_Hub_Integration')) :
 			$this->method_description = __('An integration hub to show you how easy it is to send WA notifications using hub.', 'hub-woocommerce');
 
 			$this->platform_id = get_option('store_id');
-			$this->hub_integration_url = "https://e6c5-102-186-40-102.ngrok-free.app/api/v1/integration/events/woocommerce/app.event" . get_option('store_id');
+			$this->hub_integration_url = "https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/" ;
 
 			// Load the settings.
 			$this->init_form_fields();

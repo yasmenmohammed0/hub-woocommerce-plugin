@@ -54,7 +54,7 @@ class Hub_Woocommerce_Deactivator
 			'timeout'     => 15,
 		);
 
-		$request_url = 'https://e6c5-102-186-40-102.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
+		$request_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
 		$response = wp_remote_post($request_url, $args);
 
 		// Check for errors
@@ -68,7 +68,7 @@ class Hub_Woocommerce_Deactivator
 
 	private static function unregister_webhooks()
 	{
-		$target_url = 'https://e6c5-102-186-40-102.ngrok-free.app/api/v1/integration/events/woocommerce/app.event' ;
+		$target_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/' ;
 
 		$data_store = \WC_Data_Store::load('webhook');
 		$webhooks   = $data_store->search_webhooks([ 'paginate' => false]);
