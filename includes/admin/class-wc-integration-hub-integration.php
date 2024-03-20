@@ -13,7 +13,7 @@ if (!class_exists('WC_Integration_Hub_Integration')) :
 	 */
 	class WC_Integration_Hub_Integration extends WC_Integration
 	{
-		public $hub_integration_id = "";
+		public $store_id = "";
 		public $hub_integration_url = "";
 
 		/**
@@ -27,15 +27,15 @@ if (!class_exists('WC_Integration_Hub_Integration')) :
 			$this->method_title       = __('Integration Hub', 'hub-woocommerce');
 			$this->method_description = __('An integration hub to show you how easy it is to send WA notifications using hub.', 'hub-woocommerce');
 
-			$this->hub_integration_id = get_option('hub_integration_id');
-			$this->hub_integration_url = "https://01hsaz5r26g79f7ewpc5gjpf4j10-931d83797b9bc62026f0.requestinspector.com" . get_option('hub_integration_id');
+			$this->store_id = get_option('store_id');
+			$this->hub_integration_url = "https://01hsaz5r26g79f7ewpc5gjpf4j10-931d83797b9bc62026f0.requestinspector.com" . get_option('store_id');
 
 			// Load the settings.
 			$this->init_form_fields();
 			$this->init_settings();
 
 			// Define user set variables.
-			$this->hub_integration_id = $this->get_option('hub_integration_id');
+			$this->hub_integration_id = $this->get_option('store_id');
 
 			// Actions.
 			add_action('woocommerce_update_options_integration_' .  $this->id, array($this, 'process_admin_options'));
@@ -47,12 +47,12 @@ if (!class_exists('WC_Integration_Hub_Integration')) :
 		public function init_form_fields()
 		{
 			$this->form_fields = array(
-				'hub_integration_id' => array(
+				'store_id' => array(
 					'title'       => __('Integration ID', 'hub-woocommerce'),
 					'type'        => 'text',
-					'description' => __('Use this ID in Hub Portal to control notification templates. <a href="' . $this->hub_integration_url . '" target="_blank">Hub Portal</a>.', 'hub-woocommerce'),
+					'description' => __('Use this ID in Hub Portal to control notification templates. <a href="' . $this->store_id . '" target="_blank">Hub Portal</a>.', 'hub-woocommerce'),
 					'desc_tip'    => false,
-					'default'     => $this->hub_integration_id,
+					'default'     => $this->store_id,
 					'custom_attributes' => array('readonly' => 'readonly')
 				),
 			);

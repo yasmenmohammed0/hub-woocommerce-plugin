@@ -71,9 +71,7 @@ class Hub_Woocommerce_Activator
 			error_log($body);
 
 			$responseArray = json_decode($body, true);
-			// $integration_id = $responseArray['merchantDetails']['_id'];
-			// if ($integration_id) {
-			// }
+
 		}
 	}
 
@@ -103,7 +101,7 @@ class Hub_Woocommerce_Activator
 		$webhook_status = 'active';
 
 		// Set the webhook endpoint URL
-		$webhook_url = 'https://01hsaz5r26g79f7ewpc5gjpf4j10-931d83797b9bc62026f0.requestinspector.com' . '?itegration_id=' . get_option('hub_integration_id');
+		$webhook_url = 'https://webhook.site/e8811346-bc14-41b4-b88c-02dcc3f1505f/woo/events' . '?store_id=' . get_option('store_id');
 
 		foreach ($webhooks_topics_to_register as $webhook_topic) {
 			// Create the webhook data

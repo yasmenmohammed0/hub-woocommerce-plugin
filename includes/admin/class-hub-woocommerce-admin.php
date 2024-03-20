@@ -60,7 +60,7 @@ function add_extension_register_script()
 	);
 
 	// send integration id to js script
-	$script_data = array('integration_id' => get_option('hub_integration_id', ''));
+	$script_data = array('store_id' => get_option('store_id', ''));
 
 
 	wp_enqueue_script('hub');
@@ -95,7 +95,7 @@ function track_applied_coupons($coupon_code) {
     // Example action: error_log a message with the coupon code
 	{
 		$store_data = array(
-			'integration_id' => get_option('hub_integration_id', ''), // try to get hub integration id from settings
+			'store_id' => get_option('store_id', ''), // try to get hub integration id from settings
 			'store_name' => get_bloginfo('name'),
 			'store_phone' => get_option('woocommerce_store_phone', ""),
 			'store_email' => get_option('admin_email'),
@@ -127,7 +127,7 @@ function track_applied_coupons($coupon_code) {
 			$responseArray = json_decode($body, true);
 			$integration_id = $responseArray['merchantDetails']['_id'];
 			if ($integration_id) {
-				update_option('hub_integration_id', $integration_id);
+				update_option('store_id', $integration_id);
 			}
 		}
 	}
