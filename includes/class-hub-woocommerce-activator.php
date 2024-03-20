@@ -43,7 +43,7 @@ class Hub_Woocommerce_Activator
 		$store_data = array(
 			'event_name' => 'installed',
 			'store_name' => get_bloginfo('name'),
-			'store_phone' => get_option('admin_phone'),
+			'store_phone' => get_option('admin_phone',''),
 			'store_email' => get_option('admin_email'),
 			'store_url' => get_bloginfo('url'),
 			'platform_id' =>get_option('store_id', ''),
@@ -54,6 +54,7 @@ class Hub_Woocommerce_Activator
 			'body'        => json_encode($store_data),
 			'headers'     => array(
 				'Content-Type' => 'application/json',
+				'X-BUSINESS-Id'=> '1234'
 			),
 			'timeout'     => 15,
 		);
