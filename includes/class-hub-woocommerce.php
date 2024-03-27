@@ -1,32 +1,10 @@
 <?php
 
-/**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across h the
- * public-facing side of the site and the admin area.
- *
- * @link       https://hub.com/
- * @since      0.1.0
- *
- * @package    Hub
- * @subpackage Hub/includes
- */
 
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      0.1.0
- * @package    Hub
- * @subpackage Hub/includes
- * @author     Twerlo <support@twerlo.com>
- */
+
+require_once plugin_dir_path( __FILE__ ) . '../vendor/autoload_packages.php';
+use Hub\Admin\Setup;
+
 
 class Hub_Woocommerce
 {
@@ -70,6 +48,10 @@ class Hub_Woocommerce
 	 */
 	public function __construct()
 	{
+			if ( is_admin() ) {
+				new Setup();
+			}
+
 		if (defined('HUB__WOOCOMMERCE_VERSION')) {
 			$this->version = HUB__WOOCOMMERCE_VERSION;
 		} else {
@@ -115,7 +97,7 @@ class Hub_Woocommerce
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/admin/class-hub-woocommerce-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/admin/setup.php';
 
 		$this->loader = new Hub_Woocommerce_Loader();
 	}

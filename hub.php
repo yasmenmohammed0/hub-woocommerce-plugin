@@ -17,6 +17,10 @@
 	die;
 }
 
+require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload_packages.php';
+
+use Hub\Admin\Setup;
+
 
 define('HUB_WOOCOMMERCE_VERSION', '0.1.0');
 
@@ -27,6 +31,7 @@ define('HUB_WOOCOMMERCE_VERSION', '0.1.0');
  */
 function activate_hub_woocommerce()
 {
+
 	require_once plugin_dir_path(__FILE__) . 'includes/class-hub-woocommerce-activator.php';
 	Hub_Woocommerce_Activator::activate();
 }
@@ -58,8 +63,32 @@ function run_hub_woocommerce()
 	 * The core plugin class that is used to define internationalization,
 	 * admin-specific hooks, and public-facing site hooks.
 	 */
+		add_action( 'updated_option', 'your_plugin_option_updated', 10, 3 );
+
+	/**
+	 * Install merchant in hub backend and register events webhooks in woo
+	 *
+	 * @since    0.1.0
+	 */
+	
+	
+	// Call the function to generate the API key
+
+	if ( ! defined( 'MAIN_PLUGIN_FILE' ) ) {
+		define( 'MAIN_PLUGIN_FILE', __FILE__ );
+	}
+	
 	require plugin_dir_path(__FILE__) . 'includes/class-hub-woocommerce.php';
 	$plugin = new Hub_Woocommerce();
 	$plugin->run();
+}
+ function your_plugin_option_updated( $option_name, $old_value, $new_value ) {
+	if ( $option_name === 'consumer_key' || $option_name === 'consumer_secret') {
+		
+		require_once plugin_dir_path(__FILE__) . 'includes/class-hub-woocommerce-deactivator.php';
+		Hub_Woocommerce_Deactivator::deactivate();
+		require_once plugin_dir_path(__FILE__) . 'includes/class-hub-woocommerce-activator.php';
+		Hub_Woocommerce_Activator::activate();
+	}
 }
 run_hub_woocommerce();

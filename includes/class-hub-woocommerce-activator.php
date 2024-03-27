@@ -20,24 +20,34 @@
  * @subpackage Hub_Woocommerce/includes
  * @author     Twerlo <support@twerlo.com>
  */
+
 class Hub_Woocommerce_Activator
 {
-
-	/**
-	 * Install merchant in hub backend and register events webhooks in woo
-	 *
-	 * @since    0.1.0
-	 */
+	
 	public static function activate()
-	{
+{
 
-		Hub_Woocommerce_Activator::install_merchant();
-		Hub_Woocommerce_Activator::register_webhooks();
+
+		if(! get_option( 'consumer_key') || ! get_option( 'consumer_secret'))
+		{
+			update_option( 'activation_note','not valid' );
+
+		}
+		else{
+
+			Hub_Woocommerce_Activator::install_merchant();
+			Hub_Woocommerce_Activator::register_webhooks();
+			update_option( 'activation_status', true);
+		}
+	
+		
 	}
-
+	
 	// if not there request new merchant install from hubs
 	private static function install_merchant()
 	{
+		$settings = get_option('woo_commerce_hub_settings');
+		$business_id = isset($settings['business_id']) ? $settings['business_id'] : '';
 		$random_string = wp_generate_password(12, true);
 		$store_id = update_option('store_id', $random_string);
 
@@ -48,6 +58,7 @@ class Hub_Woocommerce_Activator
 			'store_email' => get_option('admin_email'),
 			'store_url' => get_bloginfo('url'),
 			'platform_id' =>get_option('store_id', ''),
+			'business_id' => $business_id
 		);
 
 		// Set up the request arguments
@@ -61,7 +72,7 @@ class Hub_Woocommerce_Activator
 			'timeout'     => 15,
 		);
 
-		$request_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
+		$request_url = 'https://90e4-196-150-14-120.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
 		$response = wp_remote_post($request_url, $args);
 
 		// Check for errors
@@ -70,7 +81,6 @@ class Hub_Woocommerce_Activator
 		} else {
 			// Success, save integration_id
 			$body = wp_remote_retrieve_body($response);
-			echo 'Response: ' . $body;
 			error_log($body);
 
 			$responseArray = json_decode($body, true);
@@ -85,15 +95,10 @@ class Hub_Woocommerce_Activator
 			'order.updated',
 			'order.deleted',
 			'order.restored',
-			'product.created',
-			'product.updated',
-			'product.deleted',
 			'customer.created',
 			'customer.updated',
 			'customer.deleted',
-			'coupon.created',
-			'coupon.updated',
-			'coupon.deleted'
+		
 		];
 
 		// not required though, it is just for webhook secret
@@ -106,7 +111,7 @@ class Hub_Woocommerce_Activator
 		// Set the webhook endpoint URL
 		
 		foreach ($webhooks_topics_to_register as $webhook_topic) {
-			$webhook_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/' .$webhook_topic .'?platform_id=' . get_option('store_id', '');
+			$webhook_url = 'https://90e4-196-150-14-120.ngrok-free.app/api/v1/integration/events/woocommerce/' .$webhook_topic .'?store_url=' . get_bloginfo('url');
 			// Create the webhook data
 			$webhook_data = array(
 				'name' => 'Hub Event: ' . $webhook_topic,

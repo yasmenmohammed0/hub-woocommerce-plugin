@@ -12,18 +12,72 @@ class Setup {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+		
+		if(! get_option( 'consumer_key') || ! get_option( 'consumer_secret')){
+			?>
+  <div class="error notice is-dismissable">
+	
+      <p><?php _e( 'Please enter a valid woocommerce credentials, go to woocommerce --> settings -->general --> wocommerce details', 'my_plugin_textdomain' ); ?></p>
+  </div>
+  <div class="error notice is-dismissable">
+	
+	<p><?php _e( 'to generate woocommerce credentials go to woocommerce --> settings -->advanced --> rest api --> create an Api key', 'my_plugin_textdomain' ); ?></p>
+</div>
+
+  <?php
+}
+
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'register_page' ) );
+		add_filter( 'woocommerce_get_sections_general', array($this,'settings_section' ));
+		add_filter( 'woocommerce_get_settings_general',  array($this,'your_plugin_add_settings'), 10, 2 );
+	}
+	
+	function settings_section( $sections ) {
+		$sections['woocommerce_api_section'] = __( 'woocommerce details', 'text-domain' );
+		return $sections;
 	}
 
-	/**
-	 * Load all necessary dependencies.
-	 *
-	 * @since 1.0.0
-	 */
+	function your_plugin_add_settings( $settings, $current_section ) {
+		if ( 'woocommerce_api_section' == $current_section ) {
+			$custom_settings = array();
+			// Add Title
+			$custom_settings[] = array(
+				'name' => __( 'Custom Settings', 'text-domain' ),
+				'type' => 'title',
+				'desc' => __( 'Enter woocommerce api key details.', 'text-domain' ),
+				'id' => 'woocommerce_api_section_desc'
+			);
+	
+			// Add a custom setting field
+			$custom_settings[] = array(
+				'name'     => __( 'Consumer Key', 'text-domain' ),
+				'desc_tip' => __( 'Enter the generated consumer secret here', 'text-domain' ),
+				'id'       => 'consumer_key',
+				'type'     => 'text',
+				'desc'     => __( 'Enter the generated consumer secret here.', 'text-domain' ),
+			);
+			$custom_settings[] = array(
+				'name'     => __( 'Consumer Secret', 'text-domain' ),
+				'desc_tip' => __( 'Enter the generated consumer secret here', 'text-domain' ),
+				'id'       => 'consumer_secret',
+				'type'     => 'text',
+				'desc'     => __( 'Enter the generated consumer secret here.', 'text-domain' ),
+			);
+	
+			// Section end
+	
+			return $custom_settings;
+		}
+	
+		return $settings;
+	}
+	
 	public function register_scripts() {
 		if ( ! method_exists( 'Automattic\WooCommerce\Admin\PageController', 'is_admin_or_embed_page' ) ||
 		! \Automattic\WooCommerce\Admin\PageController::is_admin_or_embed_page()
+		
 		) {
 			return;
 		}
@@ -48,7 +102,7 @@ class Setup {
 
 		wp_register_style(
 			'hub',
-			plugins_url( '/build/index.css', MAIN_PLUGIN_FILE ),
+			plugins_url( './../build/index.css', MAIN_PLUGIN_FILE ),
 			// Add any dependencies styles may have, such as wp-components.
 			array(),
 			filemtime( dirname( MAIN_PLUGIN_FILE ) . '/build/index.css' )
@@ -63,7 +117,8 @@ class Setup {
 	 *
 	 * @since 1.0.0
 	 */
-	public function register_page() {
+	
+		public function register_page() {
 
 		if ( ! function_exists( 'wc_admin_register_page' ) ) {
 			return;
@@ -78,4 +133,5 @@ class Setup {
 			)
 		);
 	}
+
 }
