@@ -55,7 +55,7 @@ class Hub_Woocommerce_Deactivator
 			'timeout'     => 15,
 		);
 
-		$request_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
+		$request_url = 'https://90e4-196-150-14-120.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
 		$response = wp_remote_post($request_url, $args);
 
 		// Check for errors
@@ -68,27 +68,26 @@ class Hub_Woocommerce_Deactivator
 	}
 
 	private static function unregister_webhooks()
-	{
-		$target_url = 'https://59f7-197-43-174-68.ngrok-free.app/api/v1/integration/events/woocommerce/' ;
+{
+    $target_url = 'https://90e4-196-150-14-120.ngrok-free.app/api/v1/integration/events/woocommerce/';
 
-		$data_store = \WC_Data_Store::load('webhook');
-		$webhooks   = $data_store->search_webhooks([ 'paginate' => false]);
+    $data_store = \WC_Data_Store::load('webhook');
+    $webhooks   = $data_store->search_webhooks(['paginate' => false]);
 
+    if ($webhooks && is_array($webhooks)) {
+        foreach ($webhooks as $webhook_id) {
+            // Load the webhook by ID
+            $webhook = new \WC_Webhook($webhook_id);
+            $url = $webhook->get_delivery_url();
 
-		if ($webhooks && is_array($webhooks)) {
-			foreach ($webhooks as $webhook_id) {
-				// Delete the webhook
-				$webhook = new WC_Webhook();
-				$webhook->set_id($webhook_id);
-				$url = $webhook->get_delivery_url();
-
-				if (strpos($url, $target_url) === 0) {
-					$webhook->delete(true);
-				  }
-			}
-			echo 'Webhooks deleted successfully.';
-		} else {
-			echo 'No webhooks found.';
-		}
-	}
+            // Check if the webhook URL starts with the target URL
+            if (strncmp($url, $target_url, strlen($target_url)) === 0) {
+                $webhook->delete(true);
+                echo "Webhook with ID $webhook_id deleted successfully.\n";
+            }
+        }
+    } else {
+        echo 'No webhooks found.';
+    }
+}
 }

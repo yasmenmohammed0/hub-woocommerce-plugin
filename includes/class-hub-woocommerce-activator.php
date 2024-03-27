@@ -28,15 +28,15 @@ class Hub_Woocommerce_Activator
 {
 
 
-		if(! get_option( 'consumer_key') || ! get_option( 'consumer_secret'))
+		if( get_option( 'consumer_key') == '' ||  get_option( 'consumer_secret') == '')
 		{
 			update_option( 'activation_note','not valid' );
+			
 
 		}
 		else{
 
 			Hub_Woocommerce_Activator::install_merchant();
-			Hub_Woocommerce_Activator::register_webhooks();
 		}
 	
 		
@@ -83,20 +83,20 @@ class Hub_Woocommerce_Activator
 			error_log($response);
 			?>
 			<div class="error notice is-dismissable">
-			  <p><?php _e( $response, 'my_plugin_textdomain' ); ?></p>
+			  <p><?php _e( 'error', 'my_plugin_textdomain' ); ?></p>
 		  </div>
 		  <?php
 		} else {
 			// Success, save integration_id
 			$body = wp_remote_retrieve_body($response);
-			error_log($body);
+			$responseArray = json_decode($body, true);
+			Hub_Woocommerce_Activator::register_webhooks();
 			error_log($body);
 			?>
 			<div class="error notice is-dismissable">
 			  <p><?php _e( $body, 'my_plugin_textdomain' ); ?></p>
 		  </div>
 		  <?php
-			$responseArray = json_decode($body, true);
 
 		}
 	}
@@ -124,7 +124,7 @@ class Hub_Woocommerce_Activator
 		// Set the webhook endpoint URL
 		
 		foreach ($webhooks_topics_to_register as $webhook_topic) {
-			$webhook_url = 'https://90e4-196-150-14-120.ngrok-free.app/api/v1/integration/events/woocommerce/' .$webhook_topic .'?store_url=' . get_bloginfo('url');
+			$webhook_url = 'https://90e4-196-150-14-120.ngrok-free.app/api/v1/integration/events/woocommerce/'.$webhook_topic .'?store_url=' . get_bloginfo('url');
 			// Create the webhook data
 			$webhook_data = array(
 				'name' => 'Hub Event: ' . $webhook_topic,
