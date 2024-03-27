@@ -37,7 +37,6 @@ class Hub_Woocommerce_Activator
 
 			Hub_Woocommerce_Activator::install_merchant();
 			Hub_Woocommerce_Activator::register_webhooks();
-			update_option( 'activation_status', true);
 		}
 	
 		
@@ -77,12 +76,22 @@ class Hub_Woocommerce_Activator
 
 		// Check for errors
 		if (is_wp_error($response)) {
-			echo 'Error: ' . $response->get_error_message();
+			error_log($response);
+			?>
+			<div class="error notice is-dismissable">
+			  <p><?php _e( $response, 'my_plugin_textdomain' ); ?></p>
+		  </div>
+		  <?php
 		} else {
 			// Success, save integration_id
 			$body = wp_remote_retrieve_body($response);
 			error_log($body);
-
+			error_log($body);
+			?>
+			<div class="error notice is-dismissable">
+			  <p><?php _e( $body, 'my_plugin_textdomain' ); ?></p>
+		  </div>
+		  <?php
 			$responseArray = json_decode($body, true);
 
 		}

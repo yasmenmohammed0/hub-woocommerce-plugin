@@ -17,7 +17,7 @@ class Setup {
 			?>
   <div class="error notice is-dismissable">
 	
-      <p><?php _e( 'Please enter a valid woocommerce credentials, go to woocommerce --> settings -->general --> wocommerce details', 'my_plugin_textdomain' ); ?></p>
+      <p><?php _e( 'Please enter a valid woocommerce credentials, go to woocommerce --> settings -->general --> Hub woocommerce integration details', 'my_plugin_textdomain' ); ?></p>
   </div>
   <div class="error notice is-dismissable">
 	
@@ -31,15 +31,15 @@ class Setup {
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'register_page' ) );
 		add_filter( 'woocommerce_get_sections_general', array($this,'settings_section' ));
-		add_filter( 'woocommerce_get_settings_general',  array($this,'your_plugin_add_settings'), 10, 2 );
+		add_filter( 'woocommerce_get_settings_general',  array($this,'hub_settings'), 10, 2 );
 	}
 	
 	function settings_section( $sections ) {
-		$sections['woocommerce_api_section'] = __( 'woocommerce details', 'text-domain' );
+		$sections['woocommerce_api_section'] = __( 'Hub woocommerce integration details', 'text-domain' );
 		return $sections;
 	}
 
-	function your_plugin_add_settings( $settings, $current_section ) {
+	function hub_settings( $settings, $current_section ) {
 		if ( 'woocommerce_api_section' == $current_section ) {
 			$custom_settings = array();
 			// Add Title
