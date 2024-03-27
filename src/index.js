@@ -1,13 +1,10 @@
 /**
  * External dependencies
  */
-import { addFilter,doAction ,} from '@wordpress/hooks';
+import { addFilter} from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
-import { Dropdown } from '@wordpress/components';
 import * as Woo from '@woocommerce/components';
 import { Fragment } from '@wordpress/element';
-import {actions } from '@wordpress/hooks';
-import { useState } from'react';
 
 /**
  * Internal dependencies
@@ -16,14 +13,8 @@ import './index.scss';
 
 const MyExamplePage = () => {
 
-	const [ consumerKey, setConsumerKey ] = useState([]);
-	const [ consumerSecret, setConsumerSecret ] = useState([]);
-
-
 	return(
 	<Fragment>
-
-
 
 		<Woo.Section component="article">
 		<Woo.SectionHeader title={__('Welcome to Hub!!', 'hub')} />
