@@ -49,9 +49,13 @@ class Hub_Woocommerce_Activator
 		$business_id = isset($settings['business_id']) ? $settings['business_id'] : '';
 		$random_string = wp_generate_password(12, true);
 		$store_id = update_option('store_id', $random_string);
+        $consumer_key = get_option( 'consumer_key' );
+        $consumer_secret = get_option( 'consumer_secret' );
 
 		$store_data = array(
 			'event_name' => 'installed',
+			'consumer_key' => $consumer_key,
+			'consumer_secret' => $consumer_secret,
 			'store_name' => get_bloginfo('name'),
 			'store_phone' => get_option('admin_phone',''),
 			'store_email' => get_option('admin_email'),
