@@ -53,10 +53,10 @@ class Setup {
 			// Add a custom setting field
 			$custom_settings[] = array(
 				'name'     => __( 'Consumer Key', 'text-domain' ),
-				'desc_tip' => __( 'Enter the generated consumer secret here', 'text-domain' ),
+				'desc_tip' => __( 'Enter the generated consumer Key here', 'text-domain' ),
 				'id'       => 'consumer_key',
 				'type'     => 'text',
-				'desc'     => __( 'Enter the generated consumer secret here.', 'text-domain' ),
+				'desc'     => __( 'Enter the generated consumer Key here.', 'text-domain' ),
 			);
 			$custom_settings[] = array(
 				'name'     => __( 'Consumer Secret', 'text-domain' ),
