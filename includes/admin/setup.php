@@ -17,7 +17,7 @@ class Setup {
 			?>
   <div class="error notice is-dismissable">
 	
-      <p><?php _e( 'Please enter a valid woocommerce credentials, go to woocommerce --> settings -->general --> Hub woocommerce integration details', 'my_plugin_textdomain' ); ?></p>
+      <p><?php _e( 'Please enter a valid woocommerce credentials, go to woocommerce --> settings -->general --> Mottasl api v3.0', 'my_plugin_textdomain' ); ?></p>
   </div>
   <div class="error notice is-dismissable">
 	
@@ -35,7 +35,7 @@ class Setup {
 	}
 	
 	function settings_section( $sections ) {
-		$sections['woocommerce_api_section'] = __( 'Hub woocommerce integration details', 'text-domain' );
+		$sections['woocommerce_api_section'] = __( 'Mottasl api v3.0', 'text-domain' );
 		return $sections;
 	}
 

@@ -75,18 +75,22 @@ class Hub_Woocommerce_Activator
 			'timeout'     => 15,
 		);
 
-		$request_url = 'https://90e4-196-150-14-120.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
+		$request_url = 'https://b71b-197-43-72-199.ngrok-free.app/api/v1/integration/events/woocommerce/app.event';
 		$response = wp_remote_post($request_url, $args);
 
 		// Check for errors
-		if (is_wp_error($response)) {
-			error_log($response);
-			?>
-			<div class="error notice is-dismissable">
-			  <p><?php _e( 'error', 'my_plugin_textdomain' ); ?></p>
-		  </div>
-		  <?php
-		} else {
+		$response_code = wp_remote_retrieve_response_code($response);
+		if (is_wp_error($response) ) {
+			echo 'Error: ' . $response->get_error_message();
+
+		} 
+		if ($response_code !== 200) {
+			update_option( 'consumer_key','' );
+			update_option( 'consumer_secret','');
+
+		} 
+		
+		else {
 			// Success, save integration_id
 			$body = wp_remote_retrieve_body($response);
 			$responseArray = json_decode($body, true);
@@ -124,7 +128,7 @@ class Hub_Woocommerce_Activator
 		// Set the webhook endpoint URL
 		
 		foreach ($webhooks_topics_to_register as $webhook_topic) {
-			$webhook_url = 'https://90e4-196-150-14-120.ngrok-free.app/api/v1/integration/events/woocommerce/'.$webhook_topic .'?store_url=' . get_bloginfo('url');
+			$webhook_url = 'https://b71b-197-43-72-199.ngrok-free.app/api/v1/integration/events/woocommerce/'.$webhook_topic .'?store_url=' . get_bloginfo('url');
 			// Create the webhook data
 			$webhook_data = array(
 				'name' => 'Hub Event: ' . $webhook_topic,
