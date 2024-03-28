@@ -110,11 +110,9 @@ class Hub_Woocommerce_Activator
 		$webhooks_topics_to_register = [
 			'order.created',
 			'order.updated',
-			'order.deleted',
-			'order.restored',
+			'product.updated',
 			'customer.created',
 			'customer.updated',
-			'customer.deleted',
 		
 		];
 
