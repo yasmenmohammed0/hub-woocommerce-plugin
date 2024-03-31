@@ -83,7 +83,7 @@ function run_hub_woocommerce()
 	$plugin->run();
 }
  function your_plugin_option_updated( $option_name, $old_value, $new_value ) {
-	if ( $option_name === 'consumer_key' || $option_name === 'consumer_secret') {
+	if (  $option_name === 'business_id' || $option_name === 'consumer_key' || $option_name === 'consumer_secret') {
 		
 		require_once plugin_dir_path(__FILE__) . 'includes/class-hub-woocommerce-deactivator.php';
 		Hub_Woocommerce_Deactivator::deactivate();

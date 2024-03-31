@@ -28,7 +28,7 @@ class Hub_Woocommerce_Activator
 {
 
 
-		if( get_option( 'consumer_key') == '' ||  get_option( 'consumer_secret') == '')
+		if( get_option( 'consumer_key') == '' ||  get_option( 'consumer_secret') == '' || get_option( 'business_id') == '')
 		{
 			update_option( 'activation_note','not valid' );
 			
@@ -46,7 +46,7 @@ class Hub_Woocommerce_Activator
 	private static function install_merchant()
 	{
 		$settings = get_option('woo_commerce_hub_settings');
-		$business_id = isset($settings['business_id']) ? $settings['business_id'] : '';
+		$business_id =get_option( 'business_id' );
 		$random_string = wp_generate_password(12, true);
 		$store_id = update_option('store_id', $random_string);
         $consumer_key = get_option( 'consumer_key' );
@@ -61,7 +61,6 @@ class Hub_Woocommerce_Activator
 			'store_email' => get_option('admin_email'),
 			'store_url' => get_bloginfo('url'),
 			'platform_id' =>get_option('store_id', ''),
-			'business_id' => $business_id
 		);
 
 		// Set up the request arguments
@@ -69,7 +68,7 @@ class Hub_Woocommerce_Activator
 			'body'        => json_encode($store_data),
 			'headers'     => array(
 				'Content-Type' => 'application/json',
-				'X-BUSINESS-Id'=> 'e692e4f4-f85b-4a02-bf01-87f24ac5a817'
+				'X-BUSINESS-Id'=> $business_id
 
 			),
 			'timeout'     => 15,
@@ -87,6 +86,8 @@ class Hub_Woocommerce_Activator
 		if ($response_code !== 200) {
 			update_option( 'consumer_key','' );
 			update_option( 'consumer_secret','');
+			update_option( 'business_id','' );
+
 
 		} 
 		

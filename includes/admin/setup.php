@@ -13,7 +13,7 @@ class Setup {
 	 */
 	public function __construct() {
 		
-		if(! get_option( 'consumer_key') || ! get_option( 'consumer_secret')){
+		if(! get_option( 'consumer_key') || ! get_option( 'consumer_secret') || get_option( 'business_id') == ''){
 			?>
   <div class="error notice is-dismissable">
 	
@@ -64,6 +64,13 @@ class Setup {
 				'id'       => 'consumer_secret',
 				'type'     => 'text',
 				'desc'     => __( 'Enter the generated consumer secret here.', 'text-domain' ),
+			);
+			$custom_settings[] = array(
+				'name'     => __( 'Mottasl Business ID', 'text-domain' ),
+				'desc_tip' => __( 'Enter the received business id from Mottasl here', 'text-domain' ),
+				'id'       => 'business_id',
+				'type'     => 'text',
+				'desc'     => __( 'Enter the received business id from Mottasl here.', 'text-domain' ),
 			);
 	
 			// Section end
